@@ -1,8 +1,8 @@
 package net.jaasiah.tutorialmod;
 
 import com.mojang.logging.LogUtils;
-import net.jaasiah.tutorialmod.item.Moditems;
-import net.minecraft.world.item.CreativeModeTab;
+import net.jaasiah.tutorialmod.item.ModCreativeModeTabs;
+import net.jaasiah.tutorialmod.item.Moditem;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
@@ -11,7 +11,6 @@ import net.minecraftforge.event.server.ServerStartingEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
@@ -28,7 +27,9 @@ public class TutorialMod {
     public TutorialMod(FMLJavaModLoadingContext context){
         IEventBus modEventBus = context.getModEventBus();
 
-        Moditems.register(modEventBus);
+        ModCreativeModeTabs.register(modEventBus);
+
+        Moditem.register(modEventBus);
 
         // Register the commonSetup method for modloading
         modEventBus.addListener(this::commonSetup);
@@ -52,7 +53,8 @@ public class TutorialMod {
     // Add the example block item to the building blocks tab
     private void addCreative(BuildCreativeModeTabContentsEvent event) {
         if(event.getTabKey() == CreativeModeTabs.TOOLS_AND_UTILITIES){
-            event.accept(Moditems.DILDO);
+            event.accept(Moditem.DILDO);
+            event.accept(Moditem.VIBRATOR);
         }
     }
 
