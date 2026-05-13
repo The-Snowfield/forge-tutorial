@@ -1,6 +1,9 @@
 package net.jaasiah.tutorialmod;
 
 import com.mojang.logging.LogUtils;
+import net.jaasiah.tutorialmod.item.Moditems;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
@@ -25,6 +28,8 @@ public class TutorialMod {
     public TutorialMod(FMLJavaModLoadingContext context){
         IEventBus modEventBus = context.getModEventBus();
 
+        Moditems.register(modEventBus);
+
         // Register the commonSetup method for modloading
         modEventBus.addListener(this::commonSetup);
 
@@ -46,7 +51,9 @@ public class TutorialMod {
 
     // Add the example block item to the building blocks tab
     private void addCreative(BuildCreativeModeTabContentsEvent event) {
-
+        if(event.getTabKey() == CreativeModeTabs.TOOLS_AND_UTILITIES){
+            event.accept(Moditems.DILDO);
+        }
     }
 
     // You can use SubscribeEvent and let the Event Bus discover methods to call
